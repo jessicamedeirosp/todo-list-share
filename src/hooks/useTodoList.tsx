@@ -7,6 +7,7 @@ const TodoContext = createContext<TodoContextProps>({} as TodoContextProps)
 
 export function TodoProvider({ children }: TodoProviderProps) {
     const [todos, setTodos] = useState<Todo[]>([])
+    const [todoCurrent, setTodoCurrent] = useState<Todo>({} as Todo)
     const headers = {
         "authorization": "XXXXXXX"
     }
@@ -25,7 +26,7 @@ export function TodoProvider({ children }: TodoProviderProps) {
             const { data } = await api.post('/todo', newTodo, {
                 headers
             })
-            
+
             setTodos([...todos, data])
         } catch (e: any) {
             toast.error(e)
@@ -54,17 +55,19 @@ export function TodoProvider({ children }: TodoProviderProps) {
     function updateOrderItems(items: Todo[]) {
         items.map((item, index) => {
             item.order = index
-            saveNewOrderItems(item)
+            updateTodoList(item)
         })
 
     }
-    async function saveNewOrderItems({id, order}: Todo) {
+
+    async function updateTodoList(todo: Todo) {
         try {
-            await api.patch(`/todo/${id}`, {order}, {headers})
+            await api.put(`/todo/${todo.id}`, {...todo}, {headers})
         } catch(e: any) {
             toast.error(e)
         }
     }
+
 
     async function getTodos() {
         try {
@@ -76,12 +79,9 @@ export function TodoProvider({ children }: TodoProviderProps) {
         }
     }
 
-    useEffect(() => {
-        getTodos()
-    }, [])
 
 
-    return <TodoContext.Provider value={{ todos, createTodo, deleteTodo, setTodos, updateOrderItems }}>
+    return <TodoContext.Provider value={{ getTodos, todos, createTodo, deleteTodo, setTodos, updateOrderItems, todoCurrent, setTodoCurrent, updateTodoList }}>
         {children}
     </TodoContext.Provider>
 }
