@@ -1,26 +1,30 @@
-import { TodoItem } from '../../components/TodoItem';
+import { useEffect } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { CreateUpdateTodoList } from '../../components/CreateUpdateTodoList';
+import { TodoListItem } from '../../components/TodoListItem';
 import { useTodo } from '../../hooks/useTodoList';
 import { Container, ListTodoListTable } from './styles';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-import { CreateUpdateTodoList } from '../../components/CreateUpdateTodoList';
 
 export function TodoList() {
-    const { todos, setTodos, updateOrderItems } = useTodo()
+    const { todos, setTodos, updateOrderItems, getTodos } = useTodo()
 
     function handleOnDragEnd(result: any) {
         if (!result.destination) return;
 
-        const items = Array.from(todos);   
-        
+        const items = Array.from(todos);
+
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
 
         setTodos(items);
         updateOrderItems(items)
     }
-    
-    
+
+
+    useEffect(() => {
+        getTodos()
+    }, [])
+
     return (
         <Container className="wrapper">
             <CreateUpdateTodoList />
@@ -35,7 +39,7 @@ export function TodoList() {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}>
 
-                                            <TodoItem name={name} id={id} key={id} />
+                                            <TodoListItem name={name} id={id} key={id} />
                                         </div>
                                     )}
                                 </Draggable>
