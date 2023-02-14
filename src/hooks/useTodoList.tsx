@@ -13,14 +13,19 @@ export function TodoProvider({ children }: TodoProviderProps) {
 
     async function createTodo(name: string) {
         try {
+            const newTodos = [...todos]
+            const maxId = newTodos.reduce((a, b) => Math.max(a, b.id), -Infinity);
+          
             const newTodo = {
-                id: todos[todos.length - 1].id + 1,
+                id: maxId + 1,
                 name,
 
             }
+            
             const { data } = await api.post('/todo', newTodo, {
                 headers
             })
+            
             setTodos([...todos, data])
         } catch (e: any) {
             toast.error(e)
