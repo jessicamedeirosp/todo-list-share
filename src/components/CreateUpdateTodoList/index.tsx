@@ -1,26 +1,61 @@
 import { CreateUpdateTodoListForm } from './styles';
-import {useState, FormEvent} from 'react'
-import {toast} from 'react-toastify'
+import { useState, FormEvent, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { useTodo } from '../../hooks/useTodoList';
-
-export function CreateUpdateTodoList() {
+import api from '../../services/api';
+interface CreateUpdateTodoListProps {
+    id?: number
+}
+export function CreateUpdateTodoList({ id }: CreateUpdateTodoListProps) {
     const [todoInput, setTodoInput] = useState<string>("")
-    const { createTodo } = useTodo()
+    const { todoCurrent, createTodo, setTodoCurrent, updateTodoList } = useTodo()
 
+    const labelTodoListForm = id ? 'Alterar' : 'Criar';
     function handleSumit(event: FormEvent<EventTarget>) {
         event.preventDefault()
+
         if (!todoInput.length) {
             toast.warning('Adicionar nome a lista');
             return
         }
+
+        if (todoInput == todoCurrent.name) return
+
+        if (id) {
+            const newTodo = {
+                ...todoCurrent,
+                name: todoInput
+            }
+            updateTodoList(newTodo)
+            return
+            
+        }
         createTodo(todoInput)
         setTodoInput("")
+        
     }
+
+    async function getTodo() {
+        try {
+            const { data } = await api.get(`/todo/${id}`)
+            setTodoCurrent(data)
+            console.log(data)
+            setTodoInput(data.name)
+
+        } catch (e: any) {
+            toast.error(e)
+        }
+    }
+
+    useEffect(() => {
+        getTodo()
+    }, [])
+
     return (
         <CreateUpdateTodoListForm onSubmit={handleSumit}>
-            <label htmlFor="todoInput">Criar nova lista</label>
+            <label htmlFor="todoInput">{labelTodoListForm} lista</label>
             <input type="text" value={todoInput} id="todoInput" onChange={(event => setTodoInput(event.target.value))} />
-            <button type="submit">Criar</button>
+            <button type="submit">{labelTodoListForm}</button>
         </CreateUpdateTodoListForm>
     )
 }

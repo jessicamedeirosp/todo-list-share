@@ -9,6 +9,7 @@ export const CreateUpdateTodoListForm = styled.form`
     font-size: 2.4rem;
     margin-bottom: 2rem;
     font-weight: 600;
+    display: block ;
   }
 
   input {
