@@ -1,25 +1,12 @@
-import { FormEvent, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
 import { TodoItem } from '../../components/TodoItem';
 import { useTodo } from '../../hooks/useTodoList';
-import { Container, CreateTodoListForm, ListTodoListTable } from './styles';
+import { Container, ListTodoListTable } from './styles';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Todo } from '../../Interfaces/Todo';
+
+import { CreateUpdateTodoList } from '../../components/CreateUpdateTodoList';
 
 export function TodoList() {
-    const { todos, createTodo, setTodos, updateOrderItems } = useTodo()
-    const [todoInput, setTodoInput] = useState<string>("")
-
-    function handleSumit(event: FormEvent<EventTarget>) {
-        event.preventDefault()
-        if (!todoInput.length) {
-            toast.warning('Adicionar nome a lista');
-            return
-        }
-        createTodo(todoInput)
-        setTodoInput("")
-    }
-
+    const { todos, setTodos, updateOrderItems } = useTodo()
 
     function handleOnDragEnd(result: any) {
         if (!result.destination) return;
@@ -36,11 +23,7 @@ export function TodoList() {
     
     return (
         <Container className="wrapper">
-            <CreateTodoListForm onSubmit={handleSumit}>
-                <label htmlFor="todoInput">Criar nova lista</label>
-                <input type="text" value={todoInput} id="todoInput" onChange={(event => setTodoInput(event.target.value))} />
-                <button type="submit">Criar</button>
-            </CreateTodoListForm>
+            <CreateUpdateTodoList />
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="todos">
                     {(provided) => (
