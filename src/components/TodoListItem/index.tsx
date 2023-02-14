@@ -5,7 +5,7 @@ import { Todo } from "../../Interfaces/Todo";
 
 type TodoItemProps = Omit<Todo, 'permalink'| 'itens' | 'order'>
 
-export function TodoItem({name, id}: TodoItemProps) {
+export function TodoListItem({name, id}: TodoItemProps) {
     const { deleteTodo } = useTodo()
     const navigate = useNavigate()
 
