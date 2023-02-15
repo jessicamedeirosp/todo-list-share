@@ -1,14 +1,15 @@
 import { ReactNode, Dispatch, SetStateAction } from 'react';
 export interface TodoItem {
     id: number,
-    item: string,  
-    order: number
+    name: string,  
+    order: number,
+    items: TodoItem[]
 }
 export interface Todo {
     id: number,
     name: string,
     permalink: string, 
-    itens: TodoItem[],
+    items: TodoItem[],
     order: number
 }
 

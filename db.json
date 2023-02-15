@@ -4,41 +4,73 @@
       "id": 2,
       "name": "test-2",
       "permalink": "/list/test-2",
-      "itens": [],
-      "order": 4
+      "items": [],
+      "order": 5
     },
     {
       "id": 3,
       "name": "test-3",
       "permalink": "/list/test-3",
-      "itens": [
+      "items": [
         {
           "id": 1,
-          "item": "todo",
+          "name": "todo",
+          "order": 1
+        },
+        {
+          "id": 2,
+          "name": "todo2",
+          "order": 1,
+          "items": [
+            {
+              "id": 1,
+              "name": "subitem 1",
+              "order" : 2
+            }, {
+              "id": 2,
+              "name": "subitem 2",
+              "order" : 1
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "todo3",
+          "items": [
+            {
+              "id": 1,
+              "name": "subitem 1",
+              "order" : 2
+            }, {
+              "id": 2,
+              "name": "subitem 2",
+              "order" : 1
+            }
+          ],
           "order": 1
         }
       ],
-      "order": 3
+      "order": 4
     },
     {
       "id": 4,
       "name": "testeeee",
-      "order": 1
+      "order": 0
     },
     {
       "id": 5,
       "name": "teste 2",
-      "order": 0
-    },
-    {
-      "id": 6,
-      "name": "teste",
-      "order": 5
+      "order": 2
     },
     {
       "id": 7,
       "name": "jessica",
-      "order": 2
+      "order": 3
+    },
+    {
+      "id": 8,
+      "name": "tarefa jess4",
+      "order": 1
     }
   ]
 }

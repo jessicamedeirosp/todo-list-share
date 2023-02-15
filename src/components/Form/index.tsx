@@ -3,10 +3,10 @@ import { useState, FormEvent, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useTodo } from '../../hooks/useTodoList';
 import api from '../../services/api';
-interface CreateUpdateTodoListProps {
+interface FormProps {
     id?: number
 }
-export function CreateUpdateTodoList({ id }: CreateUpdateTodoListProps) {
+export function Form({ id }: FormProps) {
     const [todoInput, setTodoInput] = useState<string>("")
     const { todoCurrent, createTodo, setTodoCurrent, updateTodoList } = useTodo()
 
