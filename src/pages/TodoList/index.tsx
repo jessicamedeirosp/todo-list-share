@@ -1,34 +1,21 @@
 import { useEffect } from 'react';
 import { Form } from '../../components/Form';
 import { List } from '../../components/List';
-import { useTodo } from '../../hooks/useTodoList';
-import { Container } from './styles';
+import { useTodo } from '../../hooks/useTodo';
+import { PageContainer } from '../../styles/page';
 
 export function TodoList() {
-    const { todos, setTodos, updateOrderItems, getTodos } = useTodo()
-
-    function handleOnDragEnd(result: any) {
-        if (!result.destination) return;
-
-        const items = Array.from(todos);
-
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        setTodos(items);
-        updateOrderItems(items)
-    }
-
+    const {readTodos, todos} = useTodo()
 
     useEffect(() => {
-        getTodos()
-    }, [])
-
+        readTodos()
+    }, [!todos.length])
+    
     return (
-        <Container className="wrapper">
+        <PageContainer className="wrapper">
             <Form />
-            <List handleOnDragEnd={handleOnDragEnd} todos={todos}/>
-        </Container>
+            <List />
+        </PageContainer>
 
     )
 }

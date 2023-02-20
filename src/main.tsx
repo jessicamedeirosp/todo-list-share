@@ -1,23 +1,22 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { GlobalStyle } from './global'
 import { BrowserRouter } from 'react-router-dom'
-import { MainRoutes } from './routes'
+import { ToastContainer } from "react-toastify"
 import { Header } from './components/Header'
-import { TodoProvider } from './hooks/useTodoList'
-import { ToastContainer } from "react-toastify";
+import { GlobalStyle } from './styles/global'
+import { MainRoutes } from './routes'
+import { TodoProvider } from './providers/TodoProvider'
 
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
+import { ModalForm } from './components/ModalForm'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-    <TodoProvider>
+  <TodoProvider>
       <BrowserRouter>
         <Header />
         <MainRoutes />
-        <GlobalStyle />
+        <ToastContainer />
+        <ModalForm />
       </BrowserRouter>
-      <ToastContainer />
-    </TodoProvider>
-  // </React.StrictMode>,
+      <GlobalStyle />    
+  </TodoProvider>,
 )

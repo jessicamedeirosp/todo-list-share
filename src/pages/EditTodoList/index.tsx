@@ -1,30 +1,22 @@
+import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { EditList } from "../../components/EditList";
 import { Form } from "../../components/Form";
-import { Container } from "./styles";
-
-
-import { List } from "../../components/List";
-import { useTodo } from "../../hooks/useTodoList";
+import { useTodo } from "../../hooks/useTodo";
+import { PageContainer } from "../../styles/page";
 
 export function EditTodoList() {
     const { id } = useParams();
-    const { todoCurrent} = useTodo()
+    const {readTodos, todos} = useTodo()
 
-    function handleOnDragEnd(result: any) {
-        if (!result.destination) return;
-
-        const items = Array.from(todoCurrent.items);
-
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-       
-    }
+    useEffect(() => {
+        readTodos()
+    }, [!todos.length])
 
     return (
-        <Container className="wrapper">
+        <PageContainer className="wrapper">
             <Form id={Number(id)}/>
-            <List handleOnDragEnd={handleOnDragEnd} todos={todoCurrent.items} />
-        </Container>
+            <EditList id={Number(id)}/>        
+        </PageContainer>
     )
 }

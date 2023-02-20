@@ -1,36 +1,23 @@
-import { Todo, TodoItem } from "../../Interfaces/Todo";
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Container } from "./styles";
-import { Item } from "../Item";
+import { HandleMoveTodoProp } from "../../Interfaces/Todo"
+import { Item } from "../Item"
+import { useTodo } from "../../hooks/useTodo"
+import { ListContainer } from "../../styles/list"
 
-interface ListProps {
-    handleOnDragEnd: (result: any) => void,
-    todos: Todo[] | TodoItem[]
-}
 
-export function List({ handleOnDragEnd, todos }: ListProps) {
+export function List() {
+    const {todos, moveTodo} = useTodo()
 
+    function handleMove({index, direction}: HandleMoveTodoProp) {
+       moveTodo(index, todos, direction)  
+    }
+    
     return (
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="todos">
-                {(provided) => (
-                    <Container className="todos" {...provided.droppableProps} ref={provided.innerRef}>
-                        {todos?.map(({ id, name,items }, index) => (
-                            <Draggable key={id.toString()} draggableId={id.toString()} index={index}>
-                                {(provided) => (
-                                    <div ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}>
-
-                                        <Item name={name} id={id} key={id} />
-                                        {items && items.map(({name, id}) => <Item name={name} id={id} key={id} />)}
-                                    </div>
-                                )}
-                            </Draggable>
-                        ))}
-                        {provided.placeholder}
-                    </Container>)}
-            </Droppable>
-        </DragDropContext>
+        <ListContainer>
+            {todos.map((todo, index) => (
+                <div key={todo.id}>
+                    <Item todo={todo} index={index} handleMove={handleMove} />
+                </div>
+            ))}
+        </ListContainer>
     )
 }

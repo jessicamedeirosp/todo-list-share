@@ -7,8 +7,7 @@ export const Container = styled.header`
     height: 6rem;  
     text-transform: uppercase;
 
-    a + a{
+    a + a {
         margin-left: 1.6rem;
-    }
-   
+    }   
 `
