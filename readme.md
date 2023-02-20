@@ -5,7 +5,7 @@
 1. Clone the project:
 
 ```
-git clone 
+git clone https://github.com/jessicamedeirosp/todo-list-share.git
 ```
 
 2. Install dependencies
