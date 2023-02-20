@@ -1,6 +1,20 @@
-# Settings Project
+# Project
 
-# Front 
+Todo list share is an application for sharing task lists, where the user can create, edit, delete, reorder and share a task list, in task lists the user can create, edit, reorder and delete items and subitems
+
+## Functions of To-do list 
+- list
+- reorder
+- to create
+- To edit
+- to share
+## Functions of items and subitems
+- list
+- reorder
+- to create
+- To edit
+# Settings Project
+## Front 
 
 1. Clone the project:
 
@@ -17,7 +31,7 @@ npm install
 ```
 npm run dev
 ```
-
+---- 
 ## Backend 
 
 1. Install json server
