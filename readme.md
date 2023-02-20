@@ -8,12 +8,15 @@ Todo list share is an application for sharing task lists, where the user can cre
 - to create
 - To edit
 - to share
+- to delete
 ## Functions of items and subitems
 - list
 - reorder
 - to create
 - To edit
+- to delete
 # Settings Project
+
 ## Front 
 
 1. Clone the project:
