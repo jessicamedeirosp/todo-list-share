@@ -1,5 +1,6 @@
 import { AiOutlineDelete, AiOutlineEdit,  AiOutlineShareAlt, AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import { useTodo } from "../../hooks/useTodo"
 import { ItemProps } from "../../Interfaces/Item"
 import { TodoItem } from "../../styles/item"
@@ -11,6 +12,7 @@ export function Item({ todo, index, handleMove}: ItemProps) {
     function copyText(id: number) {
         const text = `http://127.0.0.1:5173/todo/${id}`
         navigator.clipboard.writeText(text)
+        toast.success('Link copiado para área de transferência')
     }
 
     function handleDelete(id: number) {
