@@ -1,9 +1,11 @@
-import axios from 'axios'
+import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:3000",
-    timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
+  baseURL: "https://lazy-cyan-python-fez.cyclic.app/",
+  timeout: 10000,
+
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "XXXXXXXXXXXXXXXX",
+  },
+});
